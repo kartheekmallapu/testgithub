@@ -192,7 +192,7 @@ module "logicmonitor_emea-shared" {
   enable_logicmonitor = local.enable_logicmonitor
   account_alias                  = "emea-shared"
   providers = {
-    aws = aws.semea-shared
+    aws = aws.emea-shared
   }
 }
 
