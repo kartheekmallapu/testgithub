@@ -208,3 +208,11 @@ provider "aws" {
   }  
   region = "ap-southeast-2"
 }
+
+provider "aws" {
+  alias = "master"
+  assume_role {
+    role_arn = "arn:aws:iam::891576938454:role/orica-vault-admin-role"
+  }  
+  region = "ap-southeast-2"
+}
