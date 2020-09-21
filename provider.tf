@@ -64,3 +64,35 @@ provider "aws" {
   }  
   region = "ap-southeast-2"
 }
+
+provider "aws" {
+  alias = "network"
+  assume_role {
+    role_arn = "arn:aws:iam::786644123640:role/orica-vault-admin-role"
+  }  
+  region = "ap-southeast-2"
+}
+
+provider "aws" {
+  alias = "nala-prd"
+  assume_role {
+    role_arn = "arn:aws:iam::412346263232:role/orica-vault-admin-role"
+  }  
+  region = "us-east-1"
+}
+
+provider "aws" {
+  alias = "pubweb-dev"
+  assume_role {
+    role_arn = "arn:aws:iam::617731613755:role/orica-vault-admin-role"
+  }  
+  region = "ap-southeast-2"
+}
+
+provider "aws" {
+  alias = "pubweb-dev"
+  assume_role {
+    role_arn = "arn:aws:iam::617731613755:role/orica-vault-admin-role"
+  }  
+  region = "ap-southeast-2"
+}
