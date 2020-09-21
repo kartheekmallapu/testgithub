@@ -98,14 +98,6 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias = "contactcenter-dev"
-  assume_role {
-    role_arn = "arn:aws:iam::329476621799:role/orica-vault-admin-role"
-  }  
-  region = "ap-southeast-2"
-}
-
-provider "aws" {
   alias = "security"
   assume_role {
     role_arn = "arn:aws:iam::631187256584:role/orica-vault-admin-role"
@@ -133,14 +125,6 @@ provider "aws" {
   alias = "nala-shared"
   assume_role {
     role_arn = "arn:aws:iam::910738028057:role/orica-vault-admin-role"
-  }  
-  region = "ap-southeast-2"
-}
-
-provider "aws" {
-  alias = "nala-tst"
-  assume_role {
-    role_arn = "arn:aws:iam::397130861550:role/orica-vault-admin-role"
   }  
   region = "ap-southeast-2"
 }
