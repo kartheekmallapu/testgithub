@@ -1,0 +1,57 @@
+
+default:
+  image:
+    name: registry.gitlab.com/orica/deployments/docker-images/terransible
+    
+include: 
+  - project: 'orica/registry/ci-templates'
+    ref: master
+    file: /get-vault-assume-role.yml
+
+stages:
+  - plan
+  - apply
+
+tf_plan:
+  tags:
+    - aws-apac-docker
+  stage: plan
+  environment:
+    name: production
+  extends:
+    - .get-assume-role
+  script:
+    - terraform init
+    - terraform plan -out=tf.plan
+  artifacts:
+    paths:
+      - tf.plan
+  when: manual
+  only:
+    refs:
+      - master
+    changes:
+      - "*.tf"
+
+# Separate apply job for manual launching Terraform as it can be destructive
+# action.
+tf_apply:
+  tags:
+    - aws-apac-docker
+  stage: apply
+  environment:
+    name: production
+  extends:
+    - .get-assume-role
+  script:
+    - terraform init
+    - terraform apply -input=false -auto-approve -no-color tf.plan
+  dependencies:
+    - tf_plan
+  when: manual
+  only:
+    refs:
+      - master
+    changes:
+      - "*.tf"
+
