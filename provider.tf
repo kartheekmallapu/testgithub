@@ -88,11 +88,3 @@ provider "aws" {
   }  
   region = "ap-southeast-2"
 }
-
-provider "aws" {
-  alias = "pubweb-dev"
-  assume_role {
-    role_arn = "arn:aws:iam::617731613755:role/orica-vault-admin-role"
-  }  
-  region = "ap-southeast-2"
-}
