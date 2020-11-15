@@ -42,12 +42,12 @@ response = requests.get(url, headers=headers)
 
 jsonRes = json.loads(response.content)
 
-print jsonRes
+print (jsonRes)
 
 extId = jsonRes['data']['externalId']
 
 
-print extId
+print (extId)
 
 #Assume role
 
@@ -100,7 +100,7 @@ arn = response['Role']['Arn']
 acc_id = arn.split(":")[4]
 
 PolArn = 'arn:aws:iam::'+acc_id+':policy/Orica-LogicMonitor-Policy'
-print PolArn
+print (PolArn)
 
 
 response = iam_client.attach_role_policy(
@@ -109,7 +109,7 @@ response = iam_client.attach_role_policy(
 )
 
 RolArn = 'arn:aws:iam::'+acc_id+':role/Orica-LogicMonitor-Role'
-print RolArn
+print (RolArn)
 
 time.sleep(60)
 
@@ -143,6 +143,6 @@ headers = {'Content-Type':'application/json','Authorization':auth}
 response = requests.post(url, data=data, headers=headers)
 
 #Print status and body of response
-print 'Response Status:',response.status_code
-print 'Response Body:',response.content
+print ("Response Status:",response.status_code)
+print ("Response Body:",response.content)
 
