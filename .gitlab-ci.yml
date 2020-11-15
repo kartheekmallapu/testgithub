@@ -1,4 +1,3 @@
-
 default:
   image:
     name: registry.gitlab.com/orica/deployments/docker-images/terransible
@@ -67,7 +66,7 @@ add_account:
   extends:
     - .get-assume-role
   script:
-    - python3 AddAccount/lm-addaccount.py
+    - python AddAccount/lm-addaccount.py
   when: manual
   only:
     # refs:
