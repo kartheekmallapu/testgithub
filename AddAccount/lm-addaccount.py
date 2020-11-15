@@ -30,9 +30,9 @@ epoch = str(int(time.time() * 1000))
 requestVars = httpVerb + epoch + data + resourcePath
 
 #Construct signature
-dig = hmac.new(AccessKey,msg=requestVars,digestmod=hashlib.sha256).hexdigest()
+dig = hmac.new(b'AccessKey',msg=requestVars,digestmod=hashlib.sha256).hexdigest()
 #signature = base64.b64encode(hmac.new(b'AccessKey',msg=requestVars,digestmod=hashlib.sha256).hexdigest())
-signature = base64.b64encode(dig).decode()
+#signature = base64.b64encode(dig).decode()
 
 #Construct headers
 auth = 'LMv1 ' + AccessId + ':' + signature + ':' + epoch
