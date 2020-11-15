@@ -11,6 +11,7 @@ include:
 stages:
   - plan
   - apply
+  - addaccount
 
 tf_plan:
   tags:
@@ -54,4 +55,24 @@ tf_apply:
       - master
     changes:
       - "*.tf"
+  
+# Separate apply job for manual adding aws account into LM
+# action.
+add_account:
+  tags:
+    - aws-apac-docker
+  stage: addaccount
+  environment:
+    name: production
+  extends:
+    - .get-assume-role
+  script:
+    - python3 AddAccount/lm-addaccount.py
+  when: manual
+  only:
+    # refs:
+    #   - master
+    changes:
+      - AddAccount/*.py
+
 
