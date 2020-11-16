@@ -20,7 +20,7 @@ resourcePath = '/aws/externalId'
 queryParams =''
 data= ''
 
-#Construct URL 
+#Construct URL
 url = 'https://'+ Company +'.logicmonitor.com/santaba/rest' + resourcePath +queryParams
 
 #Get current time in milliseconds
@@ -30,10 +30,7 @@ epoch = str(int(time.time() * 1000))
 requestVars = httpVerb + epoch + data + resourcePath
 
 #Construct signature
-dig = hmac.new(b'AccessKey', msg=requestVars.encode(), digestmod=hashlib.sha256).hexdigest()
-#signature = base64.b64encode(hmac.new(b'AccessKey',msg=requestVars,digestmod=hashlib.sha256).hexdigest())
-signature = base64.b64encode(dig.encode('utf-8'))
-signature = str(b'signature')
+signature = base64.b64encode(hmac.new(AccessKey,msg=requestVars,digestmod=hashlib.sha256).hexdigest())
 
 #Construct headers
 auth = 'LMv1 ' + AccessId + ':' + signature + ':' + epoch
@@ -45,12 +42,12 @@ response = requests.get(url, headers=headers)
 
 jsonRes = json.loads(response.content)
 
-print (jsonRes)
+print jsonRes
 
 extId = jsonRes['data']['externalId']
 
 
-print (extId)
+print extId
 
 #Assume role
 
@@ -61,15 +58,15 @@ stsresponse = boto_sts2.assume_role(RoleArn='arn:aws:iam::891576938454:role/oric
 mastersession_id = stsresponse['Credentials']['AccessKeyId']
 mastersession_key = stsresponse['Credentials']['SecretAccessKey']
 mastersession_token = stsresponse['Credentials']['SessionToken']
-        
-arn = 'arn:aws:iam::276879320786:role/orica-vault-admin-role'       
+
+arn = 'arn:aws:iam::276879320786:role/orica-vault-admin-role'
 
 stsresponse2 = boto_sts2.assume_role(RoleArn=arn,RoleSessionName='orica-vault-admin-role')
-        
+
 newsession_id2 = stsresponse2['Credentials']['AccessKeyId']
 newsession_key2 = stsresponse2['Credentials']['SecretAccessKey']
 newsession_token2 = stsresponse2['Credentials']['SessionToken']
-		
+
 policy = {
         'Version': '2012-10-17',
         'Statement': [
@@ -103,7 +100,7 @@ arn = response['Role']['Arn']
 acc_id = arn.split(":")[4]
 
 PolArn = 'arn:aws:iam::'+acc_id+':policy/Orica-LogicMonitor-Policy'
-print (PolArn)
+print PolArn
 
 
 response = iam_client.attach_role_policy(
@@ -112,7 +109,7 @@ response = iam_client.attach_role_policy(
 )
 
 RolArn = 'arn:aws:iam::'+acc_id+':role/Orica-LogicMonitor-Role'
-print (RolArn)
+print RolArn
 
 time.sleep(60)
 
@@ -125,7 +122,7 @@ data='{"groupType":"AWS/AwsRoot","name":"AWS APAC Dev","description":"Sydney DC"
 
 #data = data % extId
 
-#Construct URL 
+#Construct URL
 url = 'https://'+ Company +'.logicmonitor.com/santaba/rest' + resourcePath + queryParams
 
 
@@ -146,6 +143,5 @@ headers = {'Content-Type':'application/json','Authorization':auth}
 response = requests.post(url, data=data, headers=headers)
 
 #Print status and body of response
-print ("Response Status:",response.status_code)
-print ("Response Body:",response.content)
-
+print 'Response Status:',response.status_code
+print 'Response Body:',response.content
