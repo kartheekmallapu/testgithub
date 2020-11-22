@@ -6,6 +6,7 @@ import base64
 import time
 import hmac
 import boto3
+import sys
 
 #def ExternalId
 
@@ -19,6 +20,13 @@ httpVerb ='GET'
 resourcePath = '/aws/externalId'
 queryParams =''
 data= ''
+
+# AWS account 
+acc_id = sys.argv[1]
+
+#LM Device name
+
+lm_dev = sys.argv[2]
 
 #Construct URL
 url = 'https://'+ Company +'.logicmonitor.com/santaba/rest' + resourcePath +queryParams
@@ -93,11 +101,11 @@ response = iam_client.create_role(
               #external_Id=extId,
     AssumeRolePolicyDocument=json.dumps(policy)
               )
-arn = response['Role']['Arn']
+#arn = response['Role']['Arn']
 
 #accid = arn.split(":")[3]
 
-acc_id = arn.split(":")[4]
+#acc_id = arn.split(":")[4]
 
 PolArn = 'arn:aws:iam::'+acc_id+':policy/Orica-LogicMonitor-Policy'
 print PolArn
@@ -118,7 +126,7 @@ httpVerb ='POST'
 resourcePath = '/device/groups'
 queryParams =''
 
-data='{"groupType":"AWS/AwsRoot","name":"AWS APAC Dev","description":"Sydney DC","disableAlerting":false,"customProperties":[{"name":"customer","value":"customerA"}],"parentId":687,"extra":{"default":{"selectAll":true,"monitoringRegions":["US_EAST_1","US_WEST_1","US_WEST_2","EU_WEST_1","EU_CENTRAL_1","AP_SOUTHEAST_1","AP_SOUTHEAST_2","AP_NORTHEAST_1","SA_EAST_1"],"deadOperation":"MANUALLY","tags":[]},"services":{"EC2":{"selectAll":false,"monitoringRegions":["US_EAST_1","US_WEST_1","US_WEST_2","EU_WEST_1","EU_CENTRAL_1","AP_SOUTHEAST_1","AP_SOUTHEAST_2","AP_NORTHEAST_1","SA_EASgit@gitlab.com:orica/deployments/logicmonitor-deploy.gitT_1"],"useDefault":false,"deadOperation":"KEEP_7_DAYS"},"LAMBDA":{"selectAll":true,"monitoringRegions":["US_EAST_1","US_WEST_1","US_WEST_2","EU_WEST_1","EU_CENTRAL_1","AP_SOUTHEAST_1","AP_SOUTHEAST_2","AP_NORTHEAST_1","SA_EAST_1"],"useDefault":true,"deadOperation":"KEEP_7_DAYS"},"DYNAMODB":{"selectAll":true,"monitoringRegions":["US_EAST_1","US_WEST_1","US_WEST_2","EU_WEST_1","EU_CENTRAL_1","AP_SOUTHEAST_1","AP_SOUTHEAST_2","AP_NORTHEAST_1","SA_EAST_1"],"useDefault":true,"deadOperation":"KEEP_7_DAYS"}},"account":{"externalId":"'+ extId +'","assumedRoleArn":"arn:aws:iam::276879320786:role/Orica-LogicMonitor-Role"}}}'
+data='{"groupType":"AWS/AwsRoot","name":"'+ lm_dev +'","description":"Sydney DC","disableAlerting":false,"customProperties":[{"name":"customer","value":"Orica"}],"parentId":687,"extra":{"default":{"selectAll":true,"monitoringRegions":["US_EAST_1","US_WEST_1","US_WEST_2","EU_WEST_1","EU_CENTRAL_1","AP_SOUTHEAST_1","AP_SOUTHEAST_2","AP_NORTHEAST_1","SA_EAST_1"],"deadOperation":"MANUALLY","tags":[]},"services":{"EC2":{"selectAll":false,"monitoringRegions":["US_EAST_1","US_WEST_1","US_WEST_2","EU_WEST_1","EU_CENTRAL_1","AP_SOUTHEAST_1","AP_SOUTHEAST_2","AP_NORTHEAST_1","SA_EASgit@gitlab.com:orica/deployments/logicmonitor-deploy.gitT_1"],"useDefault":false,"deadOperation":"KEEP_7_DAYS"},"LAMBDA":{"selectAll":true,"monitoringRegions":["US_EAST_1","US_WEST_1","US_WEST_2","EU_WEST_1","EU_CENTRAL_1","AP_SOUTHEAST_1","AP_SOUTHEAST_2","AP_NORTHEAST_1","SA_EAST_1"],"useDefault":true,"deadOperation":"KEEP_7_DAYS"},"DYNAMODB":{"selectAll":true,"monitoringRegions":["US_EAST_1","US_WEST_1","US_WEST_2","EU_WEST_1","EU_CENTRAL_1","AP_SOUTHEAST_1","AP_SOUTHEAST_2","AP_NORTHEAST_1","SA_EAST_1"],"useDefault":true,"deadOperation":"KEEP_7_DAYS"}},"account":{"externalId":"'+ extId +'","assumedRoleArn":"arn:aws:iam::'+ acc_id +':role/Orica-LogicMonitor-Role"}}}'
 
 #data = data % extId
 
