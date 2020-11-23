@@ -67,7 +67,7 @@ mastersession_id = stsresponse['Credentials']['AccessKeyId']
 mastersession_key = stsresponse['Credentials']['SecretAccessKey']
 mastersession_token = stsresponse['Credentials']['SessionToken']
 
-arn = 'arn:aws:iam::276879320786:role/orica-vault-admin-role'
+arn = 'arn:aws:iam::'+acc_id+':role/orica-vault-admin-role'
 
 stsresponse2 = boto_sts2.assume_role(RoleArn=arn,RoleSessionName='orica-vault-admin-role')
 
