@@ -11,8 +11,8 @@ import sys
 #def ExternalId
 
 #Account Info
-AccessId ='VZ46i54LWjgEeus88IEG'
-AccessKey ='~CGt7(7uj_N6E%V2cHU6dd9}~~fUJ59v(z7R(}}s'
+AccessId =''
+AccessKey =''
 Company = 'orica'
 
 #Request Info
