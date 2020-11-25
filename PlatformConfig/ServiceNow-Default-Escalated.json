@@ -1,0 +1,10 @@
+{"short_description":"LogicMonitor ##LEVEL##: ##HOST## ##DSNAME## ##INSTANCE## ##DATAPOINT## ##VALUE## (ref: ##INTERNALID##)","u_requestor":"##servicenow.user##","comments":"Group: ##GROUP##\n
+Host: ##HOST##\n
+Severity Level: ##LEVEL##\n
+Alert ID: ##ALERTID##\n
+\n
+##MESSAGE##\n
+\n
+##ALERTDETAILURL##\n
+\n
+View Alert in LogicMonitor: ##AlertDetailURL##","urgency": "##servicenow.severity##","state":"##servicenow.updateincidentstate##","impact":"##servicenow.impact##","logicmonitor_alert_id":"##ALERTID##", "logicmonitor_alert_state":"##ALERTSTATUS##", "logicmonitor_alert_level": "##LEVEL##","cmdb_ci":"##sn.sys_id##","assignment_group":"dbf9409adb3a9450b0bc6f8b1396194e"}
